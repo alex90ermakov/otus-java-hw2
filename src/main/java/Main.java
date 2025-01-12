@@ -1,6 +1,7 @@
 
 import animals.Animal;
 import data.AnimalFactory;
+import data.InputIntValidator;
 import menu.Command;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,18 +11,22 @@ public class Main {
     public static void main (String[] args) {
         //Добавмил сканнер
         Scanner scanner = new Scanner(System.in);
+
+        //Добавил валидатор для int значений.
+        InputIntValidator validator = new InputIntValidator(scanner);
+
         //Создал ArrayList Animal
         List<Animal> animals = new ArrayList<>();
+
         //меню
-        boolean menu = true;
-        while (menu) {      //цикл для меню пока не выйдем командой exit.
+        while (true) {
             System.out.println("Привет! Вводи команду Add / List / Exit : ");
 
             String input = scanner.nextLine().toUpperCase().trim();
 
-            Command command = Command.fromString(input);        //ввод комманд из строки input.
+            Command command = Command.fromString(input);
 
-            if (command == null) {                               // проверяет чтобы в команде не был null.
+            if (command == null) {
                 System.out.print("Неверная команда, попробуйте еще : ");
                 continue;
             }
@@ -41,19 +46,16 @@ public class Main {
                       }
                     } while (!rightType);
 
-                    String name;
-                    int age;
-                    int weight;
-                    String color;
+                    //Проверка на ввод int значений возраста и веса.
+                    System.out.println("Как зовут животное?");
+                    String name = scanner.nextLine().trim();
 
-                    System.out.println("Введите имя животного");
-                    name = scanner.nextLine().trim();
-                    System.out.println("Введите возраст животного");
-                    age = Integer.parseInt(scanner.nextLine());
-                    System.out.println("Введите вес животного");
-                    weight = Integer.parseInt(scanner.nextLine());
-                    System.out.println("Введите цвет животного");
-                    color = scanner.nextLine().trim().toUpperCase();
+                    int age = validator.getValidInput("Сколько ему лет?", "Возраст должен", 1, 20);
+
+                    int weight = validator.getValidInput("Сколько оно весит?", "Вес должен", 1, 100);
+
+                    System.out.println("Какого цвета животное?");
+                    String color = scanner.nextLine().trim().toUpperCase();
 
                     try {
                         Animal newAnimal = AnimalFactory.createAnimal(type, name, age, weight, color);
