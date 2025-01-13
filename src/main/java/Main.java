@@ -1,7 +1,10 @@
 
 import animals.Animal;
+import animals.pets.Cat;
+import animals.pets.Dog;
 import data.AnimalFactory;
 import data.InputIntValidator;
+import data.InputStringValidator;
 import menu.Command;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,11 +12,12 @@ import java.util.Scanner;
 
 public class Main {
     public static void main (String[] args) {
-        //Добавмил сканнер
+        //Добавил сканнер
         Scanner scanner = new Scanner(System.in);
 
         //Добавил валидатор для int значений.
         InputIntValidator validator = new InputIntValidator(scanner);
+        InputStringValidator validator1 = new InputStringValidator(scanner);
 
         //Создал ArrayList Animal
         List<Animal> animals = new ArrayList<>();
@@ -47,15 +51,14 @@ public class Main {
                     } while (!rightType);
 
                     //Проверка на ввод int значений возраста и веса.
-                    System.out.println("Как зовут животное?");
-                    String name = scanner.nextLine().trim();
+                    String name = validator1.getValidInput("Как зовут животное?", "Имя должно", 1,15).trim().toUpperCase();
 
                     int age = validator.getValidInput("Сколько ему лет?", "Возраст должен", 1, 20);
 
                     int weight = validator.getValidInput("Сколько оно весит?", "Вес должен", 1, 100);
 
-                    System.out.println("Какого цвета животное?");
-                    String color = scanner.nextLine().trim().toUpperCase();
+                    String color = validator1.getValidInput("Какого цвета животное?", "Вводи", 1, 15).trim().toUpperCase();
+
 
                     try {
                         Animal newAnimal = AnimalFactory.createAnimal(type, name, age, weight, color);
