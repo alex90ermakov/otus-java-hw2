@@ -16,9 +16,9 @@ public class InputIntValidator {
             System.out.println(hint + " (число от " + min + " до " + max + ")" );
             try {
                 value = scanner.nextInt();
-                if (value >= min && value <= max) {
-                    isValid = true;
-                }  else {
+                isValid = value >= min && value <= max;
+
+                if (!isValid) {
                     System.out.println(paramMast + " быть в диапазоне от " + min + " до " + max );
                 }
             }catch (InputMismatchException e) {

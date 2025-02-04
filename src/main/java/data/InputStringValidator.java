@@ -6,11 +6,9 @@ import java.util.Scanner;
 public class InputStringValidator {
 
     private Scanner scanner;
-
     public InputStringValidator(Scanner scanner) {
         this.scanner = scanner;
     }
-
 
     public String getValidInput(String hint, String paramMast, int min, int max ) {
         String strVal = "";
@@ -19,10 +17,9 @@ public class InputStringValidator {
             System.out.println(hint + " ( от " + min + " до " + max + " символов)" );
             try {
                 strVal = scanner.next();
-                if (strVal.length() >= min && strVal.length() <= max) {
-                    isValid = true;
-                }  else {
-                    System.out.println(paramMast + " не менее " + min + " и не более " + max + " символов" );
+                isValid = strVal.length() >= min && strVal.length() <= max;
+                if (!isValid) {
+                    System.out.println(paramMast + " быть не менее " + min + " и не более " + max + " символов" );
                 }
             }catch (InputMismatchException e) {
                 System.out.println("Количество символов ограничено!");
@@ -32,6 +29,4 @@ public class InputStringValidator {
         scanner.nextLine();
         return strVal;
     }
-
-
 }
