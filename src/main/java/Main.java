@@ -22,10 +22,9 @@ public class Main {
 
         //Создал ArrayList Animal
         List<Animal> animals = new ArrayList<>();
-
+        System.out.println("Привет! Вводи команду Add / List / Exit : ");
         //меню
         while (true) {
-            System.out.println("Привет! Вводи команду Add / List / Exit : ");
             Command command = null;
             do {
                 String input = scanner.nextLine().toUpperCase().trim();
